@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>
+            Sign Language Recognition
+        </title>
+        <style>
+            .load {
+              float: right;
+              width: 300px;
+              border: 1px solid black;
+              margin-left: 10px;
+              margin-bottom: 10px;
+              padding: 10px;
+            }
+            .load th, .load td {
+              padding: 6px;
+              text-align: center;
+            }
+        </style>
+        {{ turbo() }}
+    </head>
+    <body>
+        {% include "result.html" %}
+        {% block content %}{% endblock %}    
+    </body>
+</html>

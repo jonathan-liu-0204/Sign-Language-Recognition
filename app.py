@@ -3,6 +3,8 @@ from multiprocessing import Process
 from flask import Flask, render_template, Response
 import cv2
 from bs4 import BeautifulSoup
+from turbo_flask import Turbo
+import threading
 
 from azure.cognitiveservices.vision.customvision.training import CustomVisionTrainingClient
 from azure.cognitiveservices.vision.customvision.prediction import CustomVisionPredictionClient
@@ -12,6 +14,7 @@ import os, time, uuid
 
 # Initialize the Flask app
 app = Flask(__name__)
+turbo = Turbo(app)
 
 ENDPOINT = "https://signlanguageproject-prediction.cognitiveservices.azure.com/"
 prediction_key = "ada5705628444484993c32a0776ca965"
@@ -30,31 +33,42 @@ for ip camera use - rtsp://username:password@ip_address:554/user=username_passwo
 for local webcam use cv2.VideoCapture(0)
 '''
 
-def classify():
-    # properties of azure cv
-    while True:
-        try:
-            output = []
+output = []
 
-            # result, image = camera.read()
-            # cv2.imwrite("output.png", image)
+def update_ans():
+    with app.app_context():
+        while True:
+            time.sleep(1)
+            turbo.push(turbo.replace(render_template('result.html'), 'load'))
 
-            with open("output.jpg", "rb") as image_contents:
-                results = predictor.classify_image(project_id, publish_iteration_name, image_contents.read())
+# def classify():
+#     # properties of azure cv
+#     # while True:
+#     try:
+#         output = []
 
-                # Display the results.
-                count = 0
-                for prediction in results.predictions:
-                    # print("\t" + prediction.tag_name +": {0:.2f}%".format(prediction.probability * 100))
-                    output.append([prediction.tag_name, (prediction.probability * 100)])
-                    if count == 1:
-                        break
-                    count = 1
-                print(output)
-                print()
-        except KeyboardInterrupt:
-            print ('KeyboardInterrupt exception is caught')
-            break
+#         # result, image = camera.read()
+#         # cv2.imwrite("output.png", image)
+
+#         with open("output.jpg", "rb") as image_contents:
+#             results = predictor.classify_image(project_id, publish_iteration_name, image_contents.read())
+
+#             # Display the results.
+#             count = 0
+#             for prediction in results.predictions:
+#                 # print("\t" + prediction.tag_name +": {0:.2f}%".format(prediction.probability * 100))
+#                 output.append([prediction.tag_name, (prediction.probability * 100)])
+#                 if count > 1:
+#                     break
+#                 count = count + 1
+#             print(output)
+#             print()
+            
+#     except KeyboardInterrupt:
+#         print ('KeyboardInterrupt exception is caught')
+#         # break
+#     except:
+#         print("Sth went wrong with the recognition. :(")
 
 def changeText(text):
     # document.getElementById("result").data = text
@@ -79,7 +93,11 @@ def gen_frames():
             frame = buffer.tobytes()
             yield (b'--frame\r\n'
                    b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')  # concat frame one by one and show result
-        
+
+@app.before_first_request
+def before_first_request():
+    threading.Thread(target = update_ans).start()
+
 @app.route('/')
 def index():
     # return "Hello World! This is Hello Page "
@@ -89,10 +107,32 @@ def index():
 def video_feed():
     return Response(gen_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
+@app.context_processor
+def update_result():    
+    try:
+        output.clear()
+        # result, image = camera.read()
+        # cv2.imwrite("output.png", image)
+
+        with open("output.jpg", "rb") as image_contents:
+            results = predictor.classify_image(project_id, publish_iteration_name, image_contents.read())
+
+            # Display the results.
+            count = 0
+            for prediction in results.predictions:
+                # print("\t" + prediction.tag_name +": {0:.2f}%".format(prediction.probability * 100))
+                output.append(prediction.tag_name)
+                if count > 1:
+                    break
+                count = count + 1
+            print(output)
+            print()
+    except KeyboardInterrupt:
+        print ('KeyboardInterrupt exception is caught')
+    except:
+        print("Sth went wrong with the recognition. :(")
+    # yield({'pos1': output[0], 'pos2': output[1], 'pos3': output[2]})
+    return {'pos1': output[0], 'pos2': output[1], 'pos3': output[2]}
 
 if __name__ == "__main__":
-    p1 = Process(target = gen_frames)
-    p1.start()
-    p2 = Process(target = classify)
-    p2.start()
     app.run(debug=True)
