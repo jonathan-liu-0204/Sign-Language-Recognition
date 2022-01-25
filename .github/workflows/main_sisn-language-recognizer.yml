@@ -60,4 +60,4 @@ jobs:
         with:
           app-name: 'sisn-language-recognizer'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_CD9B132DA1A143BD8F919467345C9A9A }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_E8DC613D742E4917B8B7C0E4FA20275E }}
