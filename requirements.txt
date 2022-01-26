@@ -2,3 +2,4 @@ Flask>=1.0,<=1.1.2
 flask
 turbo-flask
 opencv-python
+libgl1-mesa-glx
