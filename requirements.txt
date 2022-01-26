@@ -3,3 +3,4 @@ flask
 turbo-flask
 opencv-python-headless
 BeautifulSoup4
+azure
