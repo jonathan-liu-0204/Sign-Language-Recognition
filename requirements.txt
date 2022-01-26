@@ -4,3 +4,4 @@ turbo-flask
 opencv-python-headless
 BeautifulSoup4
 azure
+azure-cognitiveservices-vision-customvision
