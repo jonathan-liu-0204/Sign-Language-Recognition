@@ -136,3 +136,17 @@ def update_result():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+#this tells how to update text without refreshing
+# https://blog.miguelgrinberg.com/post/dynamically-update-your-flask-web-pages-using-turbo-flask
+
+#Local Git deployment to Azure App Service
+#https://docs.microsoft.com/en-us/azure/app-service/deploy-local-git?tabs=portal
+
+#Video Streaming in Web Browsers with OpenCV & Flask
+#https://towardsdatascience.com/video-streaming-in-web-browsers-with-opencv-flask-93a38846fe00
+
+#Deploy
+# 1. git add . 
+# 2. git commit -m ""
+# 3. git push azure main:master 
