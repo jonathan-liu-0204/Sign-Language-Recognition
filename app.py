@@ -27,7 +27,7 @@ prediction_credentials = ApiKeyCredentials(in_headers={"Prediction-key": predict
 predictor = CustomVisionPredictionClient(ENDPOINT, prediction_credentials)
 
 #capture video through cv2
-camera = cv2.VideoCapture(-1)
+camera = cv2.VideoCapture(0)
 '''
 for ip camera use - rtsp://username:password@ip_address:554/user=username_password='password'_channel=channel_number_stream=0.sdp' 
 for local webcam use cv2.VideoCapture(0)
@@ -92,7 +92,7 @@ def gen_frames():
             cv2.imwrite("output.jpg", frame)
             frame = buffer.tobytes()
             yield (b'--frame\r\n'
-                   b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')  # concat frame one by one and show result
+                   b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')  # concat frame one by one and show result
 
 @app.before_first_request
 def before_first_request():
