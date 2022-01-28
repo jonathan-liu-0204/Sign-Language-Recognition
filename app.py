@@ -135,7 +135,7 @@ def update_result():
     return {'pos1': output[0], 'pos2': output[1], 'pos3': output[2]}
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
 
 #this tells how to update text without refreshing
 # https://blog.miguelgrinberg.com/post/dynamically-update-your-flask-web-pages-using-turbo-flask
