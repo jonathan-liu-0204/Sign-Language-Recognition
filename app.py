@@ -41,6 +41,7 @@ def update_ans():
             time.sleep(1)
             turbo.push(turbo.replace(render_template('result.html'), 'load'))
 
+
 # def classify():
 #     # properties of azure cv
 #     # while True:
@@ -70,17 +71,6 @@ def update_ans():
 #     except:
 #         print("Sth went wrong with the recognition. :(")
 
-def changeText(text):
-    # document.getElementById("result").data = text
-    html_file = open("templates/index.html", "r")
-    soup = BeautifulSoup(html_file, 'html.parser')
-    tmp = soup.find(id="ans")
-    tmp.string.replace_with('hahahahaha')
-    # tmp = tmp.replaceWith('<div class="ans" id="ans">' + text + '</div>')
-    open("templates/index.html", 'wb').write(tmp)
-    print(tmp)
-
-
 def gen_frames():  
     while True:
         # changeText("yoyoyo")
@@ -94,9 +84,9 @@ def gen_frames():
             yield (b'--frame\r\n'
                    b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')  # concat frame one by one and show result
 
-@app.before_first_request
-def before_first_request():
-    threading.Thread(target = update_ans).start()
+# @app.before_first_request
+# def before_first_request():
+#     threading.Thread(target = update_ans).start()
 
 @app.route('/')
 def index():
@@ -107,32 +97,32 @@ def index():
 def video_feed():
     return Response(gen_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
-@app.context_processor
-def update_result():    
-    try:
-        output.clear()
-        # result, image = camera.read()
-        # cv2.imwrite("output.png", image)
+# @app.context_processor
+# def update_result():    
+#     try:
+#         output.clear()
+#         # result, image = camera.read()
+#         # cv2.imwrite("output.png", image)
 
-        with open("output.jpg", "rb") as image_contents:
-            results = predictor.classify_image(project_id, publish_iteration_name, image_contents.read())
+#         with open("output.jpg", "rb") as image_contents:
+#             results = predictor.classify_image(project_id, publish_iteration_name, image_contents.read())
 
-            # Display the results.
-            count = 0
-            for prediction in results.predictions:
-                # print("\t" + prediction.tag_name +": {0:.2f}%".format(prediction.probability * 100))
-                output.append(prediction.tag_name)
-                if count > 1:
-                    break
-                count = count + 1
-            print(output)
-            print()
-    except KeyboardInterrupt:
-        print ('KeyboardInterrupt exception is caught')
-    except:
-        print("Sth went wrong with the recognition. :(")
-    # yield({'pos1': output[0], 'pos2': output[1], 'pos3': output[2]})
-    return {'pos1': output[0], 'pos2': output[1], 'pos3': output[2]}
+#             # Display the results.
+#             count = 0
+#             for prediction in results.predictions:
+#                 # print("\t" + prediction.tag_name +": {0:.2f}%".format(prediction.probability * 100))
+#                 output.append(prediction.tag_name)
+#                 if count > 1:
+#                     break
+#                 count = count + 1
+#             print(output)
+#             print()
+#     except KeyboardInterrupt:
+#         print ('KeyboardInterrupt exception is caught')
+#     except:
+#         print("Sth went wrong with the recognition. :(")
+#     # yield({'pos1': output[0], 'pos2': output[1], 'pos3': output[2]})
+#     return {'pos1': output[0], 'pos2': output[1], 'pos3': output[2]}
 
 if __name__ == "__main__":
     app.run()
