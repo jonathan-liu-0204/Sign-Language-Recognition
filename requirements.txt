@@ -5,3 +5,4 @@ opencv-python-headless
 BeautifulSoup4
 azure
 azure-cognitiveservices-vision-customvision
+threading
