@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Sign Language Recognition</title>
+        <style>
+            h1{
+                font-family: sans-serif;
+                color:#333
+            }
+            body{
+                margin: 0px 0px;
+                padding: 0px 0px;
+            }
+
+            #container{
+                margin: 0px auto;
+                width: 500px;
+                height: 375px;
+                border: 10px #333 solid;
+            }
+
+            #videoElement{
+                width: 500px;
+                height: 375px;
+                background-color: #666;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Sign Language Recognition</h1>
+        <div id="container">
+            <video autoplay="true" id="videoElement">
+
+            </video>
+        </div>    
+
+        <script>
+            var video = document.querySelector("#videoElement");
+
+            if(navigator.mediaDevices.getUserMedia){
+                navigator.mediaDevices.getUserMedia({ video: true })
+                    .then(function(stream){
+                        document.querySelector("#videoElement").srcObject = stream;
+                    })
+                    .catch(function(err0r){
+                        console.log("Something went wrong!");
+                    });
+            }
+            else{
+                console.log("getUserMedia not supported!");
+            }
+        </script>
+    </body>
+</html>
