@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Sign Language Recognition</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+    <style>
+        h1 {
+            font-family: sans-serif;
+            color: #333
+        }
+
+        body {
+            margin: 0px 0px;
+            padding: 0px 0px;
+        }
+
+        #container {
+            margin: 0px auto;
+            width: 500px;
+            height: 375px;
+            border: 10px #333 solid;
+        }
+
+        #videoElement {
+            width: 500px;
+            height: 375px;
+            background-color: #666;
+        }
+    </style>
+    <script charset="utf-8">
+        $(document).ready(function () {
+            const socket = io.connect();
+            socket.on('answer', function (msg) {
+                console.log(msg)
+            });
+
+            $("#button").click(function () {
+                socket.emit("image", "Client image")
+            })
+        });
+    </script>
+</head>
+
+<body>
+    <h1>Sign Language Recognition</h1>
+    <div id="container">
+        <video autoplay="true" id="videoElement">
+    </div>
+    <button id="button">Test</button>
+
+    <script>
+        var video = document.querySelector("#videoElement");
+
+        if (navigator.mediaDevices.getUserMedia) {
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then(function (stream) {
+                    document.querySelector("#videoElement").srcObject = stream;
+                })
+                .catch(function (err0r) {
+                    console.log("Something went wrong!");
+                });
+        }
+        else {
+            console.log("getUserMedia not supported!");
+        }
+    </script>
+</body>
+
+</html>
