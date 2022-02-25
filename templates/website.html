@@ -19,6 +19,20 @@
             padding: 0px 0px;
         }
 
+        button{
+            margin: 0px auto;
+            width:100px;
+            height: 50px;
+            background-color: rgb(231, 178, 4);
+        }
+
+        .button_box {
+            margin: 0px auto;
+            width: 300px;
+   		    height: 100px;
+            line-height: 100px; 
+        }
+
         #container {
             margin: 0px auto;
             width: 500px;
@@ -30,6 +44,14 @@
             width: 500px;
             height: 375px;
             background-color: #666;
+        }
+
+        #update {
+            font-family: sans-serif;
+        }
+
+        #answer {
+            font-family: sans-serif;
         }
     </style>
     <script charset="utf-8">
@@ -50,9 +72,23 @@
         }
 
         $(document).ready(function () {
+
             const socket = io.connect();
+
             socket.on('answer', function (msg) {
+                var message_received = []
                 console.log(msg)
+                console.log("Received message: " + msg);
+                //maintain a list of ten numbers
+                if (message_received.length >= 10){
+                    message_received.shift()
+                }            
+                message_received.push(msg);
+                message_string = '';
+                for (var i = 0; i < message_received.length; i++){
+                    message_string = message_string + '<p>' + message_received[i] + '</p>';
+                }
+                $('#answer').html(message_string);
             });
 
             $("#button").click(function () {
@@ -76,11 +112,19 @@
 </head>
 
 <body>
-    <h1>Sign Language Recognition</h1>
+    <h1 align="center" valign="center">Sign Language Recognition</h1>
     <div id="container">
         <video autoplay="true" id="videoElement">
     </div>
-    <button id="button">Send & Recognize</button>
+    <div align="center" valign="center" class="button_box">
+        <button id="button" ><strong>Send & Recognize</strong></button>
+    </div>
+    <div  align="center" valign="center" class="container" id="content">
+        <div  align="center" valign="center" class="update" id="update">
+            <h3>Recognition Result:</h3>
+            <div class="answer" id="answer">
+            </div> <!-- /#answer -->
+        </div>
+    </div>
 </body>
-
 </html>

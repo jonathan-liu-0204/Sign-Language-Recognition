@@ -25,3 +25,4 @@ yarg==0.1.9
 azure
 azure-cognitiveservices-vision-customvision
 Pillow
+turbo_flask
