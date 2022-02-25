@@ -66,4 +66,4 @@ def home():
     return render_template('website.html', async_mode=socketio.async_mode)
 
 if __name__ == "__main__":
-    socketio.run(app)
+    socketio.run(app, debug=True)
