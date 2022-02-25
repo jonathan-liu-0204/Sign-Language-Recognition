@@ -24,3 +24,4 @@ Werkzeug==2.0.3
 yarg==0.1.9
 azure
 azure-cognitiveservices-vision-customvision
+Pillow

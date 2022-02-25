@@ -6,7 +6,8 @@
     <title>Sign Language Recognition</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
     <style>
         h1 {
             font-family: sans-serif;
@@ -32,28 +33,8 @@
         }
     </style>
     <script charset="utf-8">
-        $(document).ready(function () {
-            const socket = io.connect();
-            socket.on('answer', function (msg) {
-                console.log(msg)
-            });
 
-            $("#button").click(function () {
-                socket.emit("image", "Client image")
-            })
-        });
-    </script>
-</head>
-
-<body>
-    <h1>Sign Language Recognition</h1>
-    <div id="container">
-        <video autoplay="true" id="videoElement">
-    </div>
-    <button id="button">Test</button>
-
-    <script>
-        var video = document.querySelector("#videoElement");
+        const video = document.querySelector("#videoElement");
 
         if (navigator.mediaDevices.getUserMedia) {
             navigator.mediaDevices.getUserMedia({ video: true })
@@ -67,6 +48,39 @@
         else {
             console.log("getUserMedia not supported!");
         }
+
+        $(document).ready(function () {
+            const socket = io.connect();
+            socket.on('answer', function (msg) {
+                console.log(msg)
+            });
+
+            $("#button").click(function () {
+                const video = document.querySelector("#videoElement")
+                const canvas = document.createElement("canvas");
+                // scale the canvas accordingly
+                canvas.width = video.clientWidth;
+                canvas.height = video.clientHeight;
+                canvas.getContext("2d").drawImage(video, 0, 0, canvas.width, canvas.height)
+
+                canvas.toBlob(blob => {
+                    const rdr = new FileReader()
+                    rdr.onload = evt => {
+                        socket.emit("image", evt.target.result)
+                    }
+                    rdr.readAsArrayBuffer(blob)
+                })
+            })
+        });
     </script>
+</head>
+
+<body>
+    <h1>Sign Language Recognition</h1>
+    <div id="container">
+        <video autoplay="true" id="videoElement">
+    </div>
+    <button id="button">Send & Recognize</button>
 </body>
+
 </html>
