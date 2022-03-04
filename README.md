@@ -1,21 +1,39 @@
-# Sign_Language_Recognition
+# Sign Language Recognition Website
 
----
-page_type: sample
-description: "A minimal sample app that can be used to demonstrate deploying Flask apps to Azure App Service on Linux."
-languages:
-- python
-products:
-- azure
-- azure-app-service
----
+## Description
+With the current technology, sign language recognition services can already achieve a certain level of accuracy. Nevertheless, most of such services rely on the computing resources of the user's computer for identification. Therefore, I combined the computer vision service of Azure with the Azure App Service and moved all the required computing resources to the cloud so that users can use the sign language recognition service anytime, anywhere.
 
-# Python Flask sample for Azure App Service (Linux)
+## Programming Languages
+- Frontend: HTML + JavaScript
+- Backend: Python + C#
 
-This is a minimal Flask app that can be deployed to Azure App Service on Linux.
 
-For instructions on running and deploying the code, see [Quickstart: Create a Python app in Azure App Service on Linux](https://docs.microsoft.com/azure/app-service/quickstart-python).
+## Prerequisites
+- Flask: For the web framework
+- Socket.IO: To enable well communication between a client and a server.
+- Azure Resources
+    - Azure App Service
+    - Custom Vision
 
-## Contributing
+## Service Architecture
 
-This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
+## Demo
+
+```
+To test the project on localhost:
+
+1. git clone https://github.com/jonathan-liu-0204/Sign_Language_Recognition.git
+2. cd "directory of the cloned repository"
+3. python3 -m venv .venv
+4. source ./bin/activate
+5. pip3 install -r requirements.txt
+6. python3 app.py
+7. Paste the generated url in your browser and start the website.
+8. deactivate (to exit the virtual enviornment)
+```
+
+Following screenshot is what you should get after running the website:
+![image](https://github.com/jonathan-liu-0204/Sign_Language_Recognition/blob/main/Screenshot%20of%20the%20Sign%20Recognition%20Website.png)
+
+## Reference
+
