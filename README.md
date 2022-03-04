@@ -33,7 +33,7 @@ To test the project on localhost:
 ```
 
 Following screenshot is what you should get after running the website:
-![image](https://imgur.com/YD4KJWE)
+![image](https://github.com/jonathan-liu-0204/Sign_Language_Recognition/blob/main/Screenshot%20of%20the%20Sign%20Recognition%20Website.png)
 
 ## Reference
 
