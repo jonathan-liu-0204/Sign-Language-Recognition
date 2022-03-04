@@ -33,7 +33,7 @@ To test the project on localhost:
 ```
 
 Following screenshot is what you should get after running the website:
-![GITHUB](https://imgur.com/YD4KJWE "Screenshot of the Sign Recognition Website")
+![image](https://imgur.com/YD4KJWE)
 
 ## Reference
 
