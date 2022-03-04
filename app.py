@@ -12,11 +12,11 @@ from azure.cognitiveservices.vision.customvision.prediction import CustomVisionP
 from azure.cognitiveservices.vision.customvision.training.models import ImageFileCreateBatch, ImageFileCreateEntry, Region
 from msrest.authentication import ApiKeyCredentials
 
-ENDPOINT = "https://signlanguageproject-prediction.cognitiveservices.azure.com/"
-prediction_key = "ada5705628444484993c32a0776ca965"
-prediction_resource_id = "/subscriptions/979b4825-25a2-4a44-b45b-9ec15fb3d60c/resourceGroups/Jonathan-Sign-Language-Proect/providers/Microsoft.CognitiveServices/accounts/SignLanguageProject-Prediction"
-project_id = "7eae198c-b416-4b84-b5d9-c2a4e7ec876a"
-publish_iteration_name = "Iteration1"
+ENDPOINT = "PUT YOUR CUSTOM VISION ENDPOINT HERE"
+prediction_key = "PUT YOUR CUSTOM VISION PREDICTION KEY HERE"
+prediction_resource_id = "PUT YOUR CUSTOM VISION PREDICTION RESOURCE ID HERE"
+project_id = "PUT YOUR CUSTOM VISION PROJECT ID HERE"
+publish_iteration_name = "PUT YOUR CUSTOM VISION PUBLISH ITERATION NAME HERE"
 prediction_credentials = ApiKeyCredentials(in_headers={"Prediction-key": prediction_key})
 predictor = CustomVisionPredictionClient(ENDPOINT, prediction_credentials)
 
