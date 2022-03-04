@@ -16,6 +16,7 @@ With the current technology, sign language recognition services can already achi
     - Custom Vision
 
 ## Service Architecture
+![image](https://github.com/jonathan-liu-0204/Sign_Language_Recognition/blob/main/Architecture%20of%20Sign%20Recognition%20Website.png)
 
 ## Demo
 
@@ -34,6 +35,4 @@ To test the project on localhost:
 
 Following screenshot is what you should get after running the website:
 ![image](https://github.com/jonathan-liu-0204/Sign_Language_Recognition/blob/main/Screenshot%20of%20the%20Sign%20Recognition%20Website.png)
-
-## Reference
 
