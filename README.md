@@ -18,6 +18,10 @@ With the current technology, sign language recognition services can already achi
 ## Service Architecture
 ![image](https://github.com/jonathan-liu-0204/Sign_Language_Recognition/blob/main/Architecture%20of%20Sign%20Recognition%20Website.png)
 
+Please notice this is a simple demo of the Sign Language Recognition Website.
+
+We can save the captured frames sent to the server and update our model simultaneously by retraining it from the stored captured frames to make the project more complete. This phase can accomplish the automated retaining process through MLOps, which can perfectly maintain and monitor our model.
+
 ## Demo
 
 ```
