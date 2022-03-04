@@ -27,8 +27,7 @@ async_mode = None
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
 app.config['TEMPLATES_AUTO_RELOAD'] = True
-socketio = SocketIO(app)
-
+socketio = SocketIO(app, cors_allowed_origins="*")
 
 @socketio.on("image")
 def process(msg):
@@ -62,8 +61,9 @@ def process(msg):
     emit("answer", "Received Time:　%s 　 Top 3 results:　1: %s　2: %s　3: %s" %(now.strftime("%H : %M : %S"), output[0], output[1], output[2]))
 
 @app.route("/")
+
 def home():
     return render_template('website.html', async_mode=socketio.async_mode)
 
 if __name__ == "__main__":
-    socketio.run(app, debug=True)
+    socketio.run(app, debug=True, port=5002)

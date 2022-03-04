@@ -26,3 +26,4 @@ azure
 azure-cognitiveservices-vision-customvision
 Pillow
 turbo_flask
+flask-cors
